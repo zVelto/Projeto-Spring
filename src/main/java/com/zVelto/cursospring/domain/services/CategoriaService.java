@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.zVelto.cursospring.domain.Categoria;
 import com.zVelto.cursospring.domain.repositories.CategoriaRepository;
+import com.zVelto.cursospring.domain.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -16,6 +17,9 @@ public class CategoriaService {
 	
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElse(null);
+		if(obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", tipo:" + Categoria.class.getName());
+		}
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", tipo:" + Categoria.class.getName()));
 	}
 }
