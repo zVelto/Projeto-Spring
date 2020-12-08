@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.zVelto.cursospring.domain.Categoria;
 import com.zVelto.cursospring.domain.Cidade;
+import com.zVelto.cursospring.domain.Cliente;
+import com.zVelto.cursospring.domain.Endereco;
 import com.zVelto.cursospring.domain.Estado;
 import com.zVelto.cursospring.domain.Produto;
+import com.zVelto.cursospring.domain.enums.TipoCliente;
 import com.zVelto.cursospring.domain.repositories.CategoriaRepository;
 import com.zVelto.cursospring.domain.repositories.CidadeRepository;
+import com.zVelto.cursospring.domain.repositories.ClienteRepository;
+import com.zVelto.cursospring.domain.repositories.EnderecoRepository;
 import com.zVelto.cursospring.domain.repositories.EstadoRepository;
 import com.zVelto.cursospring.domain.repositories.ProdutoRepository;
 
@@ -27,6 +32,10 @@ public class CursoSpringApplication implements CommandLineRunner{
 	private CidadeRepository cRepo;
 	@Autowired 
 	private EstadoRepository estRepo;
+	@Autowired
+	private ClienteRepository cliRepo;
+	@Autowired
+	private EnderecoRepository eRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringApplication.class, args);
@@ -64,6 +73,19 @@ public class CursoSpringApplication implements CommandLineRunner{
 		
 		estRepo.saveAll(Arrays.asList(est1, est2));
 		cRepo.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOA_FISICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		cliRepo.saveAll(Arrays.asList(cli1));
+		eRepo.saveAll(Arrays.asList(e1, e2));
+		
 	}
 
 }
