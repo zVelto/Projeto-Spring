@@ -3,10 +3,12 @@ package com.zVelto.cursospring.domain.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.zVelto.cursospring.domain.Categoria;
 import com.zVelto.cursospring.domain.repositories.CategoriaRepository;
+import com.zVelto.cursospring.domain.services.exceptions.DataIntegrityException;
 import com.zVelto.cursospring.domain.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -31,5 +33,15 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
 	}
 }
