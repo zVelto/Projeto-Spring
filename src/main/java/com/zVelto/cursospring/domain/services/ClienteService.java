@@ -16,13 +16,16 @@ import org.springframework.stereotype.Service;
 import com.zVelto.cursospring.domain.Cidade;
 import com.zVelto.cursospring.domain.Cliente;
 import com.zVelto.cursospring.domain.Endereco;
+import com.zVelto.cursospring.domain.enums.Perfil;
 import com.zVelto.cursospring.domain.enums.TipoCliente;
 import com.zVelto.cursospring.domain.repositories.ClienteRepository;
 import com.zVelto.cursospring.domain.repositories.EnderecoRepository;
+import com.zVelto.cursospring.domain.services.exceptions.AuthorizationException;
 import com.zVelto.cursospring.domain.services.exceptions.DataIntegrityException;
 import com.zVelto.cursospring.domain.services.exceptions.ObjectNotFoundException;
 import com.zVelto.cursospring.dto.ClienteDTO;
 import com.zVelto.cursospring.dto.ClienteNewDTO;
+import com.zVelto.cursospring.security.UserSS;
 
 @Service
 public class ClienteService {
@@ -37,6 +40,12 @@ public class ClienteService {
 	private EnderecoRepository endRepo;
 	
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", tipo:" + Cliente.class.getName());
