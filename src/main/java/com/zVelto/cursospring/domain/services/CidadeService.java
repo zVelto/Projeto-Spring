@@ -10,7 +10,7 @@ import com.zVelto.cursospring.domain.repositories.CidadeRepository;
 
 @Service
 public class CidadeService {
-
+	
 	@Autowired
 	private CidadeRepository repo;
 

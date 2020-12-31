@@ -1,6 +1,6 @@
 package com.zVelto.cursospring.domain.services.exceptions;
 
-public class DataIntegrityException extends RuntimeException{
+public class DataIntegrityException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	

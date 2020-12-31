@@ -24,15 +24,14 @@ public class PedidoResource {
 	
 	@Autowired
 	private PedidoService service;
-
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Pedido> find(@PathVariable Integer id) {
-		
 		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -49,5 +48,4 @@ public class PedidoResource {
 		Page<Pedido> list = service.findPage(page, linesPerPage, orderBy, direction);
 		return ResponseEntity.ok().body(list);
 	}
-	
 }

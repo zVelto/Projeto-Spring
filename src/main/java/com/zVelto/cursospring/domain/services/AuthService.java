@@ -15,25 +15,25 @@ public class AuthService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
-
+	
 	@Autowired
 	private BCryptPasswordEncoder pe;
-
+	
 	@Autowired
 	private EmailService emailService;
-
+	
 	private Random rand = new Random();
-
+	
 	public void sendNewPassword(String email) {
-
+		
 		Cliente cliente = clienteRepository.findByEmail(email);
 		if (cliente == null) {
 			throw new ObjectNotFoundException("Email não encontrado");
 		}
-
+		
 		String newPass = newPassword();
 		cliente.setSenha(pe.encode(newPass));
-
+		
 		clienteRepository.save(cliente);
 		emailService.sendNewPasswordEmail(cliente, newPass);
 	}

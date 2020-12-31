@@ -1,9 +1,9 @@
 package com.zVelto.cursospring.domain.enums;
 
 public enum TipoCliente {
-	
-	PESSOA_FISICA(1, "Pessoa Física"),
-	PESSOA_JURIDICA(2, "Pessoa Jurídica");
+
+	PESSOAFISICA(1, "Pessoa Física"),
+	PESSOAJURIDICA(2, "Pessoa Jurídica");
 	
 	private int cod;
 	private String descricao;
@@ -12,28 +12,28 @@ public enum TipoCliente {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
-
+	
 	public int getCod() {
 		return cod;
 	}
-
-	public String getDescricao() {
+	
+	public String getDescricao () {
 		return descricao;
 	}
 	
 	public static TipoCliente toEnum(Integer cod) {
 		
-		if(cod == null) {
+		if (cod == null) {
 			return null;
 		}
 		
 		for (TipoCliente x : TipoCliente.values()) {
-			if(cod.equals(x.getCod())) {
+			if (cod.equals(x.getCod())) {
 				return x;
 			}
 		}
 		
 		throw new IllegalArgumentException("Id inválido: " + cod);
 	}
-
+	
 }

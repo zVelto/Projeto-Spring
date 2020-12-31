@@ -20,25 +20,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zVelto.cursospring.dto.CredenciaisDTO;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-	
+
 	private AuthenticationManager authenticationManager;
     
     private JWTUtil jwtUtil;
-    
+
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
     	setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
-
+	
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) {
+    public Authentication attemptAuthentication(HttpServletRequest req,
+                                                HttpServletResponse res) throws AuthenticationException {
+
 		try {
 			CredenciaisDTO creds = new ObjectMapper()
 	                .readValue(req.getInputStream(), CredenciaisDTO.class);
-
+	
 	        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getSenha(), new ArrayList<>());
-
+	        
 	        Authentication auth = authenticationManager.authenticate(authToken);
 	        return auth;
 		}

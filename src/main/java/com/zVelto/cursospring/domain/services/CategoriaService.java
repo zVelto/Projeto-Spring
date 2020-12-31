@@ -21,13 +21,11 @@ public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repo;
-	
+
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
-		if(obj == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", tipo:" + Categoria.class.getName());
-		}
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id:" + id + ", tipo:" + Categoria.class.getName()));
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
 	public Categoria insert(Categoria obj) {
@@ -46,12 +44,12 @@ public class CategoriaService {
 		try {
 			repo.deleteById(id);
 		}
-		catch(DataIntegrityViolationException e) {
+		catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
 		}
 	}
 	
-	public List<Categoria> findAll(){
+	public List<Categoria> findAll() {
 		return repo.findAll();
 	}
 	
@@ -60,12 +58,11 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}
 	
-	public Categoria fromDTO(CategoriaDTO objDTO) {
-		return new Categoria(objDTO.getId(), objDTO.getNome());
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 	
 	private void updateData(Categoria newObj, Categoria obj) {
 		newObj.setNome(obj.getNome());
 	}
-	
 }

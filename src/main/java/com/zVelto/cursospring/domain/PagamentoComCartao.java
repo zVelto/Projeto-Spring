@@ -7,12 +7,11 @@ import com.zVelto.cursospring.domain.enums.EstadoPagamento;
 
 @Entity
 @JsonTypeName("pagamentoComCartao")
-public class PagamentoComCartao extends Pagamento{
-	
+public class PagamentoComCartao extends Pagamento {
 	private static final long serialVersionUID = 1L;
-	
-	private Integer numeroDeParcelas;
 
+	private Integer numeroDeParcelas;
+	
 	public PagamentoComCartao() {
 	}
 
@@ -28,6 +27,7 @@ public class PagamentoComCartao extends Pagamento{
 	public void setNumeroDeParcelas(Integer numeroDeParcelas) {
 		this.numeroDeParcelas = numeroDeParcelas;
 	}
-
-
+	
+	
+		
 }

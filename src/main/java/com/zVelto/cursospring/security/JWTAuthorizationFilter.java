@@ -15,11 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-	
+
 	private JWTUtil jwtUtil;
 	
 	private UserDetailsService userDetailsService;
-
+	
 	public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, UserDetailsService userDetailsService) {
 		super(authenticationManager);
 		this.jwtUtil = jwtUtil;
@@ -30,7 +30,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
-
+		
 		String header = request.getHeader("Authorization");
 		if (header != null && header.startsWith("Bearer ")) {
 			UsernamePasswordAuthenticationToken auth = getAuthentication(header.substring(7));
@@ -49,5 +49,4 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		}
 		return null;
 	}
-
 }

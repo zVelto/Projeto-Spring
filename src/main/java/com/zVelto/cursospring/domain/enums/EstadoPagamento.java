@@ -13,23 +13,23 @@ public enum EstadoPagamento {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
-
+	
 	public int getCod() {
 		return cod;
 	}
-
-	public String getDescricao() {
+	
+	public String getDescricao () {
 		return descricao;
 	}
 	
 	public static EstadoPagamento toEnum(Integer cod) {
 		
-		if(cod == null) {
+		if (cod == null) {
 			return null;
 		}
 		
 		for (EstadoPagamento x : EstadoPagamento.values()) {
-			if(cod.equals(x.getCod())) {
+			if (cod.equals(x.getCod())) {
 				return x;
 			}
 		}

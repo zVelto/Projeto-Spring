@@ -9,9 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zVelto.cursospring.domain.Estado;
 
 @Repository
-public interface EstadoRepository extends JpaRepository<Estado, Integer>{
-	
+public interface EstadoRepository extends JpaRepository<Estado, Integer> {
+
 	@Transactional(readOnly=true)
 	public List<Estado> findAllByOrderByNome();
-
 }

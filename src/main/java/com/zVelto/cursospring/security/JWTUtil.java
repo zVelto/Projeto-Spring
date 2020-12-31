@@ -14,7 +14,7 @@ public class JWTUtil {
 	
 	@Value("${jwt.secret}")
 	private String secret;
-	
+
 	@Value("${jwt.expiration}")
 	private Long expiration;
 	
@@ -46,7 +46,7 @@ public class JWTUtil {
 		}
 		return null;
 	}
-
+	
 	private Claims getClaims(String token) {
 		try {
 			return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
@@ -55,5 +55,4 @@ public class JWTUtil {
 			return null;
 		}
 	}
-
 }

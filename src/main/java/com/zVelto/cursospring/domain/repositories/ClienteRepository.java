@@ -7,9 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zVelto.cursospring.domain.Cliente;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
-	
-	@Transactional(readOnly = true)
-	Cliente findByEmail(String email);
+public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
+	@Transactional(readOnly=true)
+	Cliente findByEmail(String email);
 }

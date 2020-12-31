@@ -10,10 +10,10 @@ import com.zVelto.cursospring.domain.repositories.EstadoRepository;
 
 @Service
 public class EstadoService {
-
+	
 	@Autowired
 	private EstadoRepository repo;
-
+	
 	public List<Estado> findAll() {
 		return repo.findAllByOrderByNome();
 	}

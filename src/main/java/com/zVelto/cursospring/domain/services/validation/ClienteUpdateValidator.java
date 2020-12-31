@@ -17,7 +17,7 @@ import com.zVelto.cursospring.dto.ClienteDTO;
 import com.zVelto.cursospring.resources.exceptions.FieldMessage;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
-	
+
 	@Autowired
 	private HttpServletRequest request;
 	
@@ -29,16 +29,16 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 	}
 
 	@Override
-	public boolean isValid(ClienteDTO objDTO, ConstraintValidatorContext context) {
+	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		Integer uriId = Integer.parseInt(map.get("id"));
 		
 		List<FieldMessage> list = new ArrayList<>();
-
-		Cliente aux = repo.findByEmail(objDTO.getEmail());
-		if(aux != null && !aux.getId().equals(uriId)) {
+		
+		Cliente aux = repo.findByEmail(objDto.getEmail());
+		if (aux != null && !aux.getId().equals(uriId)) {
 			list.add(new FieldMessage("email", "Email já existente"));
 		}
 

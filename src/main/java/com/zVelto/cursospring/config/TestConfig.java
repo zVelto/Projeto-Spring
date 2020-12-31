@@ -14,7 +14,7 @@ import com.zVelto.cursospring.domain.services.MockEmailService;
 @Configuration
 @Profile("test")
 public class TestConfig {
-	
+
 	@Autowired
 	private DBService dbService;
 	
@@ -28,5 +28,4 @@ public class TestConfig {
 	public EmailService emailService() {
 		return new MockEmailService();
 	}
-
 }

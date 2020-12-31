@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,14 +23,15 @@ import com.zVelto.cursospring.domain.enums.Perfil;
 import com.zVelto.cursospring.domain.enums.TipoCliente;
 
 @Entity
-public class Cliente implements Serializable{
-	
+public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@Column(unique=true)
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
@@ -37,11 +39,11 @@ public class Cliente implements Serializable{
 	@JsonIgnore
 	private String senha;
 	
-	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection
-	@CollectionTable(name = "TELEFONE")
+	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
 	@ElementCollection(fetch=FetchType.EAGER)
@@ -49,7 +51,7 @@ public class Cliente implements Serializable{
 	private Set<Integer> perfis = new HashSet<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Cliente() {
@@ -62,7 +64,7 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = (tipo == null) ? null : tipo.getCod();
+		this.tipo = (tipo==null) ? null : tipo.getCod();
 		this.senha = senha;
 		addPerfil(Perfil.CLIENTE);
 	}
@@ -110,7 +112,7 @@ public class Cliente implements Serializable{
 	public String getSenha() {
 		return senha;
 	}
-
+	
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
@@ -122,7 +124,7 @@ public class Cliente implements Serializable{
 	public void addPerfil(Perfil perfil) {
 		perfis.add(perfil.getCod());
 	}
-
+	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -138,7 +140,7 @@ public class Cliente implements Serializable{
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-	
+
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -146,7 +148,7 @@ public class Cliente implements Serializable{
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -170,8 +172,5 @@ public class Cliente implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	
-	
-
+	}	
 }

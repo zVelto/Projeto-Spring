@@ -7,16 +7,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class ItemPedidoPK implements Serializable{
-
+public class ItemPedidoPK implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "PEDIDO_ID")
+	@JoinColumn(name="pedido_id")
 	private Pedido pedido;
 	
 	@ManyToOne
-	@JoinColumn(name = "PRODUTO_ID")
+	@JoinColumn(name="produto_id")
 	private Produto produto;
 	
 	public Pedido getPedido() {
@@ -31,7 +30,6 @@ public class ItemPedidoPK implements Serializable{
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -40,7 +38,6 @@ public class ItemPedidoPK implements Serializable{
 		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -62,5 +59,7 @@ public class ItemPedidoPK implements Serializable{
 			return false;
 		return true;
 	}
-
+	
+	
+	
 }
